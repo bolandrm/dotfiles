@@ -1,0 +1,9 @@
+mv ~/.vim ~/vim-old
+mv ~/.vimrc ~/.vimrc-old
+mv ~/.bashrc ~/.bashrc-old
+mv ~/.bash_profile ~/.bash_profile-old
+
+ln -s ~/dotfiles/.vim           ~/.vim
+ln -s ~/dotfiles/.vimrc         ~/.vimrc
+ln -s ~/dotfiles/.bash_profile  ~/.bash_profile
+ln -s ~/dotfiles/.bashrc        ~/.bashrc
