@@ -10,3 +10,4 @@ export PATH
 alias ll='ls -al'
 alias llt='ls -alt'
 alias l.='ls -a'
+alias getkey='pbcopy < ~/.ssh/id_rsa.pub'
