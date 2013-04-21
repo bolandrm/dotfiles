@@ -4,6 +4,8 @@ export BASH_CONF="bashrc"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 PATH=$PATH:/usr/local/bin
+PATH=$PATH:/usr/local/sbin
+PATH=$PATH:/usr/local/share/npm/bin
 
 export PATH
 

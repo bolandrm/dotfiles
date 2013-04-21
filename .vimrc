@@ -6,7 +6,7 @@ syntax on
 
 "Solarized theme
 let g:solarized_termtrans = 1
-set background=light
+set background=dark
 colorscheme solarized
 
 set guifont=Inconsolata-g:h12
@@ -37,16 +37,20 @@ let g:ctrlp_map = '<Leader>t'
 map <F2> :source $MYVIMRC<CR>:echoe "Vimrc Reloaded!!!"<CR> "F2 to reload vimrc
 nmap <silent> <Leader>/ :nohlsearch<CR> " ,/ clears search
 
+" setup quicker split navigation
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+" set up ,, to quick swap buffers
 nnoremap <Leader><Leader> <C-^>
 
+" Setup status bar
 set laststatus=2
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 
+" Setup height of active split
 set winwidth=84
 " We have to have a winheight bigger than we want to set winminheight. But if
 " " we set winheight to be huge before winminheight, the winminheight set will
@@ -55,5 +59,6 @@ set winheight=5
 set winminheight=5
 set winheight=999
 
-set background=light
-colorscheme solarized
+" Enable mouse
+set mouse=a
+set mousef=on
