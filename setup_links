@@ -1,7 +1,9 @@
-mv ~/.vimrc ~/.vimrc-old
-mv ~/.bashrc ~/.bashrc-old
-mv ~/.bash_profile ~/.bash_profile-old
+mv ~/.vimrc         ~/.vimrc-old
+mv ~/.bashrc        ~/.bashrc-old
+mv ~/.bash_profile  ~/.bash_profile-old
+mv ~/.tmux.conf     ~/.tmux.conf-old
 
 ln -s ~/dotfiles/.vimrc         ~/.vimrc
 ln -s ~/dotfiles/.bash_profile  ~/.bash_profile
 ln -s ~/dotfiles/.bashrc        ~/.bashrc
+ln -s ~/dotfiles/.tmux.conf     ~/.tmux.conf 
