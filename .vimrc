@@ -43,6 +43,9 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+" set ruler
+set colorcolumn=80
+
 " set up ,, to quick swap buffers
 nnoremap <Leader><Leader> <C-^>
 
