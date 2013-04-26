@@ -46,6 +46,7 @@ noremap <Right> <NOP>
 "Bindings
 let mapleader=","
 let g:ctrlp_map = '<Leader>t'
+let g:EasyMotion_leader_key = '<Leader>'
 map <F2> :source $MYVIMRC<CR>:echoe "Vimrc Reloaded!!!"<CR> "F2 to reload vimrc
 nmap <silent> <Leader>/ :nohlsearch<CR> " ,/ clears search
 
