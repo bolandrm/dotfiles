@@ -1,0 +1,16 @@
+[user]
+	name = Ryan Boland
+	email = bolandryanm@gmail.com
+[alias]
+  st = status
+  ci = commit
+  p = push
+  co = checkout
+  di = diff --color
+  dc = diff --cached --color
+  aa = add -A
+  b = branch
+
+  # Logs
+  l = "!. ~/dotfiles/.gitfuncts && pretty_git_log"
+  r = !git l -30
