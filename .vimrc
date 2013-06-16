@@ -12,6 +12,7 @@ Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
+Bundle 'scrooloose/nerdtree'
 
 syntax enable
 syntax on
@@ -79,3 +80,75 @@ set winheight=999
 " Enable mouse
 set mouse=a
 set mousef=on
+
+map <leader>r :call RunTestFile()<cr>
+map <leader>R :call RunNearestTest()<cr>
+map <leader>a :call RunTests('spec')<cr>
+map <leader>c :w\|:!script/features<cr>
+
+" Sets up NERDTree
+" Opens in small left vertical split
+let g:NERDTreeHijackNetrw = 0
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+if argc() == 1 && argv(0) == '.'
+  autocmd vimenter * NERDTree
+
+  autocmd vimenter * wincmd w
+  if !empty($L)
+    autocmd vimenter * wincmd v
+    autocmd vimenter * wincmd v
+  endif
+endif
+
+" Test running stuff, this needs work ...
+function! RunTestFile(...)
+  if a:0
+    let command_suffix = a:1
+  else
+    let command_suffix = ""
+  endif
+
+  " Run the tests for previously marked file
+  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\)$') != -1
+  if in_test_file
+    call SetTestFile()
+  elseif !exists("t:grb_test_file")
+    return
+  end
+  call RunTests(t:grb_test_file . command_suffix)
+endfunction
+
+function! RunNearestTest()
+  let spec_line_number = line('.')
+  call RunTestFile(":" . spec_line_number . " -b")
+endfunction
+
+function! SetTestFile()
+  " Set the spec file that tests will be run for.
+  let t:grb_test_file=@%
+endfunction
+
+function! RunTests(filename)
+  "write the file and run tests for given filename
+  :w
+  ":silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  ":silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  ":silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  ":silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  ":silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  if match(a:filename, '\.feature$') != -1
+    exec ":!zeus cucumber " . a:filename
+  else
+    if filereadable("script/test")
+      exec ":!script/test " . a:filename
+    elseif filereadable("Gemfile")
+      exec ":!zeus rspec " . a:filename
+    else
+      exec ":!rspec " . a:filename
+    end
+  end
+endfunction
