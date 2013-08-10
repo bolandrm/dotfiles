@@ -1,9 +1,11 @@
 export BASH_CONF="bashrc"
 
+export PATH=/usr/local/Cellar/postgresql/9.2.4/bin:$PATH
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 PATH=$PATH:/usr/local/bin
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 PATH=$PATH:/usr/local/sbin
 PATH=$PATH:/usr/local/share/npm/bin
 
@@ -20,3 +22,7 @@ alias llt='ls -alt'
 alias l.='ls -a'
 alias getkey='pbcopy < ~/.ssh/id_rsa.pub'
 alias g='git'
+
+alias viml='L=t vim .'
+
+alias lessn='/usr/local/share/npm/bin/lessc'

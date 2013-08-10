@@ -13,6 +13,8 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/nerdtree'
+Bundle 'vim-scripts/Rename2'
+Bundle 'nono/vim-handlebars'
 
 syntax enable
 syntax on
@@ -102,6 +104,12 @@ if argc() == 1 && argv(0) == '.'
     autocmd vimenter * wincmd v
   endif
 endif
+
+
+autocmd BufNewFile,BufRead Gemfile set filetype=ruby
+autocmd BufNewFile,BufRead Rakefile set filetype=ruby
+
+
 
 " Test running stuff, this needs work ...
 function! RunTestFile(...)
