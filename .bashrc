@@ -22,6 +22,8 @@ alias llt='ls -alt'
 alias l.='ls -a'
 alias getkey='pbcopy < ~/.ssh/id_rsa.pub'
 alias g='git'
+alias be='bundle exec '
+alias r='rails'
 
 alias viml='L=t vim .'
 

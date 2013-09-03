@@ -4,6 +4,7 @@ set nocompatible
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
+Bundle 'bling/vim-airline'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'kien/ctrlp.vim'
 Bundle 'altercation/vim-colors-solarized'
@@ -12,19 +13,27 @@ Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-eunuch'
 Bundle 'scrooloose/nerdtree'
-Bundle 'vim-scripts/Rename2'
 Bundle 'nono/vim-handlebars'
 
 syntax enable
 syntax on
 
+set backspace=indent,eol,start
+
 "Solarized theme
 let g:solarized_termtrans = 1
-set background=dark
+"set background=dark
 colorscheme solarized
+set t_Co=256
 
-set guifont=Inconsolata-g:h12
+"Vim AIRLINE
+set encoding=utf-8
+let g:airline_theme='solarized'
+let g:Powerline_symbols='unicode'
+set laststatus=2
+set guifont=Inconsolata\ for\ Powerline
 
 set ts=2 sts=2 sw=2 expandtab "Convert tabs to 2 spaces
 set number      " line numbers
@@ -64,11 +73,6 @@ set colorcolumn=80
 
 " set up ,, to quick swap buffers
 nnoremap <Leader><Leader> <C-^>
-
-" Setup status bar
-" TODO: Make this better
-set laststatus=2
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 
 " Setup height of active split
 set winwidth=84
