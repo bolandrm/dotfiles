@@ -16,6 +16,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-eunuch'
 Bundle 'scrooloose/nerdtree'
 Bundle 'nono/vim-handlebars'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'slim-template/vim-slim'
 
 syntax enable
 syntax on
@@ -26,12 +28,12 @@ set backspace=indent,eol,start
 let g:solarized_termtrans = 1
 "set background=dark
 colorscheme solarized
-set t_Co=256
 
 "Vim AIRLINE
+"let g:Powerline_symbols = 'fancy'
 set encoding=utf-8
+let g:airline_powerline_fonts = 1
 let g:airline_theme='solarized'
-let g:Powerline_symbols='unicode'
 set laststatus=2
 set guifont=Inconsolata\ for\ Powerline
 
@@ -164,3 +166,6 @@ function! RunTests(filename)
     end
   end
 endfunction
+
+" Disable folding for markdown syntax plugin
+let g:vim_markdown_folding_disabled=1
