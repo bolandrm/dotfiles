@@ -11,6 +11,10 @@ PATH=$PATH:/usr/local/share/npm/bin
 
 export PATH
 
+export GIT_EDITOR=vim
+export VISUAL=vim
+export EDITOR=vim
+
 #colorize
 export CLICOLOR=1
 source "`brew --prefix`/etc/grc.bashrc"
