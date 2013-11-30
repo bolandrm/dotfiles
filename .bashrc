@@ -1,6 +1,7 @@
 export BASH_CONF="bashrc"
 
 export PATH=/usr/local/Cellar/postgresql/9.2.4/bin:$PATH
+export PATH=/usr/local/Cellar/vim/7.4.052/bin:$PATH
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 

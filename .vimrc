@@ -18,6 +18,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'nono/vim-handlebars'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'slim-template/vim-slim'
+Bundle 'ervandew/supertab'
 
 syntax enable
 syntax on
@@ -28,6 +29,8 @@ set backspace=indent,eol,start
 let g:solarized_termtrans = 1
 "set background=dark
 colorscheme solarized
+" change the default EasyMotion shading to something more readable with Solarized
+hi link EasyMotionShade  Comment
 
 "Vim AIRLINE
 "let g:Powerline_symbols = 'fancy'
@@ -89,11 +92,6 @@ set winheight=999
 set mouse=a
 set mousef=on
 
-map <leader>r :call RunTestFile()<cr>
-map <leader>R :call RunNearestTest()<cr>
-map <leader>a :call RunTests('spec')<cr>
-map <leader>c :w\|:!script/features<cr>
-
 " Sets up NERDTree
 " Opens in small left vertical split
 let g:NERDTreeHijackNetrw = 0
@@ -115,57 +113,11 @@ endif
 autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 autocmd BufNewFile,BufRead Rakefile set filetype=ruby
 
-
-
-" Test running stuff, this needs work ...
-function! RunTestFile(...)
-  if a:0
-    let command_suffix = a:1
-  else
-    let command_suffix = ""
-  endif
-
-  " Run the tests for previously marked file
-  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\)$') != -1
-  if in_test_file
-    call SetTestFile()
-  elseif !exists("t:grb_test_file")
-    return
-  end
-  call RunTests(t:grb_test_file . command_suffix)
-endfunction
-
-function! RunNearestTest()
-  let spec_line_number = line('.')
-  call RunTestFile(":" . spec_line_number . " -b")
-endfunction
-
-function! SetTestFile()
-  " Set the spec file that tests will be run for.
-  let t:grb_test_file=@%
-endfunction
-
-function! RunTests(filename)
-  "write the file and run tests for given filename
-  :w
-  ":silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-  ":silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-  ":silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-  ":silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-  ":silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-  if match(a:filename, '\.feature$') != -1
-    exec ":!zeus cucumber " . a:filename
-  else
-    if filereadable("script/test")
-      exec ":!script/test " . a:filename
-    elseif filereadable("Gemfile")
-      exec ":!zeus rspec " . a:filename
-    else
-      exec ":!rspec " . a:filename
-    end
-  end
-endfunction
+" Ruby Autocomplete
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
 " Disable folding for markdown syntax plugin
 let g:vim_markdown_folding_disabled=1

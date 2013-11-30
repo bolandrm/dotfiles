@@ -14,3 +14,5 @@
   # Logs
   l = "!. ~/dotfiles/.gitfuncts && pretty_git_log"
   r = !git l -30
+[push]
+	default = simple
