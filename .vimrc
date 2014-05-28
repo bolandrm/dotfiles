@@ -1,5 +1,8 @@
 set nocompatible
 
+" allow % to jump between beginning and end of blocks
+runtime macros/matchit.vim
+
 "Bundle plugins!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -14,11 +17,15 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-eunuch'
+Bundle 'tpope/vim-bundler'
+Bundle 'tpope/vim-abolish'
 Bundle 'scrooloose/nerdtree'
 Bundle 'nono/vim-handlebars'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'slim-template/vim-slim'
-Bundle 'ervandew/supertab'
+Bundle 'bolandrm/vim-rspec'
+Bundle 'kana/vim-textobj-user'
+Bundle 'nelstrom/vim-textobj-rubyblock'
 
 syntax enable
 syntax on
@@ -39,9 +46,11 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='solarized'
 set laststatus=2
 set guifont=Inconsolata\ for\ Powerline
+set synmaxcol=150  " only highlight to a certain column (for perf)
 
 set ts=2 sts=2 sw=2 expandtab "Convert tabs to 2 spaces
 set number      " line numbers
+"set rnu         " relative line nums
 set nowrap
 set hidden
 set autoindent  " always autoindent
@@ -88,10 +97,6 @@ set winheight=5
 set winminheight=5
 set winheight=999
 
-" Enable mouse
-set mouse=a
-set mousef=on
-
 " Sets up NERDTree
 " Opens in small left vertical split
 let g:NERDTreeHijackNetrw = 0
@@ -100,24 +105,55 @@ let g:loaded_netrwPlugin = 1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 if argc() == 1 && argv(0) == '.'
-  autocmd vimenter * NERDTree
+  if !empty($VT)
+    autocmd vimenter * NERDTree
+  endif
 
   autocmd vimenter * wincmd w
-  if !empty($L)
+  if !empty($VL)
     autocmd vimenter * wincmd v
     autocmd vimenter * wincmd v
   endif
 endif
 
-
+" Read Rakefile and Gemfile as ruby
 autocmd BufNewFile,BufRead Gemfile set filetype=ruby
+autocmd BufNewFile,BufRead Guardfile set filetype=ruby
 autocmd BufNewFile,BufRead Rakefile set filetype=ruby
-
-" Ruby Autocomplete
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
 " Disable folding for markdown syntax plugin
 let g:vim_markdown_folding_disabled=1
+
+" ctrl p - ignore files
+set wildignore+=*/source_maps/*,*/tmp/*
+
+" configure vim-rspec
+map <Leader>r :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+let g:rspec_patterns = [
+                       \ [ '\v^app/.+_controller\.rb$', "spec/features" ],
+                       \ [ '\v^app/.+(\.js|\.coffee)$', "spec/features" ],
+                       \ [ '\v^app/(.+)\.rb$', "spec/{MATCH1}_spec.rb" ]
+                     \ ]
+
+
+" use ctrl-d to open shell
+noremap <C-d> :sh<cr>
+
+" highlight trailing whitespace
+:highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+
+" convert "This is a Description" => this_is_a_description
+nnoremap <Leader>u Vi" :<C-w>%s/\%V,*\s/_/g<CR> :normal ds" guaW<CR>
+
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
