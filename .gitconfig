@@ -1,6 +1,7 @@
 [user]
 	name = Ryan Boland
 	email = bolandryanm@gmail.com
+
 [alias]
   st = status
   ci = commit
@@ -14,5 +15,9 @@
   # Logs
   l = "!. ~/dotfiles/.gitfuncts && pretty_git_log"
   r = !git l -30
+
 [push]
 	default = simple
+
+[merge]
+  tool = vimdiff
